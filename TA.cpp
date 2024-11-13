@@ -6,6 +6,8 @@
 #include <stdlib.h>			
 #include <stdio.h>			//Input Output
 
+#DEFINE MAXCHAIRS = 3;
+
 pthread_t *Students;		//N threads running as Students.
 pthread_t TA;				//Separate Thread for TA.
 
@@ -28,6 +30,9 @@ int CurrentIndex = 0;
  
  */
 
+pthread_mutex_t mutex;
+sem_t TA_sleep;
+sem_t Student_sem;
 
 
 //Declared Functions
@@ -37,15 +42,16 @@ void *Student_Activity(void *threadID);
 int main(int argc, char* argv[])
 {
 	int number_of_students;		//a variable taken from the user to create student threads.	Default is 5 student threads.
-	int id;
+	int id; //IDK WTF THIS IS FOR
 	srand(time(NULL));
 
     /*TODO
 	//Initializing Mutex Lock and Semaphores.
-	
      //hint: use sem_init() and pthread_mutex_init()
-     
      */
+	pthread_mutex_init(&mutex, NULL);
+	sem_init(&TA_sleep, 0, 0);
+	sem_init(&Student_sem, 0, 0);
 	
 	if(argc<2)
 	{
@@ -64,11 +70,23 @@ int main(int argc, char* argv[])
     /*TODO
 	//Creating one TA thread and N Student threads.
      //hint: use pthread_create
-
 	//Waiting for TA thread and N Student threads.
      //hint: use pthread_join
-     
      */
+
+	pthread_create(&TA, NULL, TA_Activity, NULL);
+
+	for(int i = 0; i < number_of_students; i++){
+		pthread_create(&Students[i], NULL, Student_Activity, NULL);
+	}
+
+	for(int i = 0; i < number_of_students; i++){
+		pthread_join(&Students[i], NULL);
+	}
+
+	pthread_mutex_destroy(&mutex);
+    sem_destroy(&TA_sleep);
+    sem_destroy(&Student_sem);
 
 	//Free allocated memory
 	free(Students); 
@@ -77,8 +95,10 @@ int main(int argc, char* argv[])
 
 void *TA_Activity()
 {
-    /* TODO
+	
+    // TODO
 	//TA is currently sleeping.
+		
 
     // lock
     
@@ -91,13 +111,13 @@ void *TA_Activity()
 	//TA is currently helping the student
      
      //hint: use sem_wait(); sem_post(); pthread_mutex_lock(); pthread_mutex_unlock()
+	}
 
-*/
 }
 
 void *Student_Activity(void *threadID) 
 {
-    /*TODO
+    //TODO
      
 	//Student  needs help from the TA
 	//Student tried to sit on a chair.
@@ -115,5 +135,5 @@ void *Student_Activity(void *threadID)
      
      //hint: use sem_wait(); sem_post(); pthread_mutex_lock(); pthread_mutex_unlock()
 			
-	*/
+	
 }
