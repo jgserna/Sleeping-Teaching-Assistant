@@ -1,9 +1,9 @@
 # Sleeping-Teaching-Assistant
 
-Rith Sreng
-Leonel Noriega-Rojas
+Rith Sreng (add email)
+Leonel Noriega-Rojas (add email)
 Jay Gallardo (jgserna@csu.fullerton.edu)
-member #4
+member #4 (add email)
 
 CPSC 351 - 02 - 18007
 
