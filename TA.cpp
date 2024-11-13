@@ -1,4 +1,3 @@
-//testing message to verify commit from tuffix
 #include <pthread.h>		//Create POSIX threads.
 #include <time.h>			//Wait for a random time.
 #include <unistd.h>			//Thread calls sleep for specified number of seconds.
@@ -6,7 +5,7 @@
 #include <stdlib.h>			
 #include <stdio.h>			//Input Output
 
-#DEFINE MAXCHAIRS 3;
+#define MAXCHAIRS 3
 
 pthread_t *Students;		//N threads running as Students.
 pthread_t TA;				//Separate Thread for TA.
@@ -53,8 +52,8 @@ int main(int argc, char* argv[])
 	pthread_mutex_init(&mutex, NULL);
 	sem_init(&TA_sleep, 0, 0);
 	sem_init(&Student_sem, 0, 0);
-	for (int i = 0; i < 3; i++) {
-    	sem_init(&chairs_sem[i], 0, 0);
+	for (int i = 0; i < MAXCHAIRS; i++) {
+    		sem_init(&chairs_sem[i], 0, 0);
 	}
 
 	
@@ -89,15 +88,15 @@ int main(int argc, char* argv[])
 		pthread_join(&Students[i], NULL);
 	}
 
-    pthread_join(TA, nullptr);
+    	pthread_join(TA, nullptr);
 
 
 	pthread_mutex_destroy(&mutex);
-    sem_destroy(&TA_sleep);
-    sem_destroy(&Student_sem);
-    for (int i = 0; i < MAXCHAIRS; i++) {
-        sem_destroy(&chairs_sem[i]);
-    }
+   	sem_destroy(&TA_sleep);
+    	sem_destroy(&Student_sem);
+    	for (int i = 0; i < MAXCHAIRS; i++) {
+        	sem_destroy(&chairs_sem[i]);
+    	}
 
 	//Free allocated memory
 	free(Students); 
@@ -122,7 +121,6 @@ void *TA_Activity()
 	//TA is currently helping the student
      
      //hint: use sem_wait(); sem_post(); pthread_mutex_lock(); pthread_mutex_unlock()
-	}
 
 }
 
