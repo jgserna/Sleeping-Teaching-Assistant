@@ -6,7 +6,7 @@
 #include <stdlib.h>			
 #include <stdio.h>			//Input Output
 
-#DEFINE MAXCHAIRS = 3;
+#DEFINE MAXCHAIRS 3;
 
 pthread_t *Students;		//N threads running as Students.
 pthread_t TA;				//Separate Thread for TA.
@@ -33,6 +33,7 @@ int CurrentIndex = 0;
 pthread_mutex_t mutex;
 sem_t TA_sleep;
 sem_t Student_sem;
+sem_t chairs_sem[MAXCHAIRS];
 
 
 //Declared Functions
@@ -52,6 +53,10 @@ int main(int argc, char* argv[])
 	pthread_mutex_init(&mutex, NULL);
 	sem_init(&TA_sleep, 0, 0);
 	sem_init(&Student_sem, 0, 0);
+	for (int i = 0; i < 3; i++) {
+    	sem_init(&chairs_sem[i], 0, 0);
+	}
+
 	
 	if(argc<2)
 	{
@@ -84,9 +89,15 @@ int main(int argc, char* argv[])
 		pthread_join(&Students[i], NULL);
 	}
 
+    pthread_join(TA, nullptr);
+
+
 	pthread_mutex_destroy(&mutex);
     sem_destroy(&TA_sleep);
     sem_destroy(&Student_sem);
+    for (int i = 0; i < MAXCHAIRS; i++) {
+        sem_destroy(&chairs_sem[i]);
+    }
 
 	//Free allocated memory
 	free(Students); 
