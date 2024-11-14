@@ -12,7 +12,7 @@ pthread_t TA;				//Separate Thread for TA.
 
 int ChairsCount = 0;
 int CurrentIndex = 0;
-
+int studentsLeft = 0;
 //TODO
 //Declaration of Semaphores and Mutex Lock.
 //Semaphores used:
@@ -62,6 +62,8 @@ int main(int argc, char* argv[])
 		number_of_students = atoi(argv[1]);
 		printf("Number of Students specified. Creating %d threads.\n", number_of_students);
 	}
+
+	studentsLeft = number_of_students;
 		
 	//Allocate memory for Students
 	Students = (pthread_t*) malloc(sizeof(pthread_t)*number_of_students);
@@ -122,7 +124,13 @@ void *TA_Activity(void *)
 		while(true){
 			pthread_mutex_lock(&mutex);//lock to access chairs count
 
-			if(ChairsCount == 0) {
+			if (studentsLeft == 0){
+				pthread_mutex_unlock(&mutex);
+				printf("All students have been helped. TA is going home.\n");
+				return NULL; //exit TA thread
+			}
+
+			if(ChairsCount == 0) {//if no students, back to sleep
 				pthread_mutex_unlock(&mutex);
 				break;
 			}
@@ -137,6 +145,10 @@ void *TA_Activity(void *)
 
 			sem_wait(&Student_sem);
 			printf("TA finished helping student.\n");
+
+			pthread_mutex_lock(&mutex);
+			studentsLeft--;//decrement students left waiting
+			pthread_mutex_unlock(&mutex);
 		}
 	}
 	return NULL;
