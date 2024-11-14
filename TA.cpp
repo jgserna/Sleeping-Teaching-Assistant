@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
         sem_init(&chairs_sem[i], 0, 0);
     }
 
-    // Default # of students or 
+    // Default # of students or
     if (argc < 2) {
         printf("Number of Students not specified. Using default (5) students.\n");
         number_of_students = 5;
@@ -79,25 +79,27 @@ int main(int argc, char* argv[]) {
 
 void *TA_Activity(void *) {
     while(true) {
-        printf("TA is sleeping ... zzz.\n");
+        printf("TA is sleeping ... zzz.\n");  // TA is currently sleeping
         sem_wait(&TA_sleep);
 
         while(true) {
                 pthread_mutex_lock(&mutex);  // lock to access chairs count
 
-            if (studentsLeft == 0) {
+            if (studentsLeft == 0) {   // if no students
                 pthread_mutex_unlock(&mutex);
                 printf("All students have been helped. TA is going home. Yay!\n");
                 return NULL; // exit TA thread
             }
 
-            if (ChairsCount == 0) { // if no students, back to sleep
+            if (ChairsCount == 0) { // if chairs are empty, break the loop
                 pthread_mutex_unlock(&mutex);
                 break;
             }
 
+            // TA gets next student on chair
             sem_post(&chairs_sem[CurrentIndex]);   // let student in
             ChairsCount--; // decrement occupied chairs
+
             printf("TA is helping a student.\n");
 
             CurrentIndex = (CurrentIndex + 1) % MAXCHAIRS;  // cycle through just like in bounded buffer example
@@ -119,8 +121,10 @@ void *Student_Activity(void *threadID) {
     free(threadID);
 
     while (true) {
+        // student needs help from TA
         pthread_mutex_lock(&mutex);     // lock to check chair count
 
+        // student tried to sit on chair
         if (ChairsCount < MAXCHAIRS) {  // if chair available
             ChairsCount++;              // student sits
             int chairIndex = (CurrentIndex + ChairsCount - 1) % MAXCHAIRS;
@@ -135,7 +139,7 @@ void *Student_Activity(void *threadID) {
             sem_post(&Student_sem);
             break;  // Exit loop after getting help
         }
-        else {
+        else {   // if student didn't find chair, will return another time
             pthread_mutex_unlock(&mutex);
             printf("Student %d will come back later due to no chairs available.\n", studentID);
             sleep(1);
