@@ -9,5 +9,9 @@ CPSC 351 - 02 - 18007
 
 C++
 
-    – How to execute your program.
-    – Anything special about your submission that we should take note of.
+    – How to Execute
+    This program was created using C++. It will run on Linux using the following commands:
+    g++ -pthread -o TA TA.cpp
+    ./TA [optional: int]   // specify number of threads; default: 5
+
+    – How did your team collaborate on your project? Illustrate each member's contribution.
