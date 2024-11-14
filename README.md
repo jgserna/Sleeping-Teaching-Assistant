@@ -14,7 +14,7 @@ CPSC 351 - 02 - 18007
     This program was created using C++. It will run on Linux using the following commands:
 
     g++ -g -pthread -o TA TA.cpp
-    ./TA [optional: int]   // specify number of threads; default: 5
-
+    ./TA [int]   // optional (specify number of threads)
+    
 # Illustrate each member's contribution. 
     How did your team collaborate on your project?
