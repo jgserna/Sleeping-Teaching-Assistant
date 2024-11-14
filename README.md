@@ -3,7 +3,7 @@
 Rith Sreng (add email)
 Leonel Noriega-Rojas (add email)
 Jay Gallardo (jgserna@csu.fullerton.edu)
-member #4 (add email)
+Noemi Pantoja-Morales (noemi_900@csu.fullerton.edu)
 
 CPSC 351 - 02 - 18007
 
