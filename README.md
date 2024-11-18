@@ -1,6 +1,6 @@
 # Sleeping-Teaching-Assistant
 
-Rith Sreng (add email)
+Rith Sreng (sothearith.au@csu.fullerton.edu)
 
 Leonel Noriega-Rojas (add email)
 
