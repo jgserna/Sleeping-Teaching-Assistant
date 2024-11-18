@@ -2,7 +2,7 @@
 
 Rith Sreng (sothearith.au@csu.fullerton.edu)
 
-Leonel Noriega-Rojas (add email)
+Leonel Noriega-Rojas (leonelnr8@csu.fullerton.edu)
 
 Jay Gallardo (jgserna@csu.fullerton.edu)
 
