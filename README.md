@@ -18,3 +18,4 @@ CPSC 351 - 02 - 18007
     
 # Illustrate each member's contribution. 
     How did your team collaborate on your project?
+(add here)
