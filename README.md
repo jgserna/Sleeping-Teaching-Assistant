@@ -17,4 +17,5 @@ CPSC 351 - 02 - 18007
     ./TA [int]   // optional (specify number of threads)
     
 # Illustrate each member's contribution. 
-    Our team worked together by dividing the tasks. Everyone helped with the coding, and Jay took care of finishing it. We all worked on the design document, and Rith made a visual chart showing how the program works. Leonel and Noemi focused on writing the README file.
+
+Our team worked together by dividing the tasks. Everyone helped with the coding, and Jay took care of finishing it. We all worked on the design document, and Rith made a visual chart showing how the program works. Leonel and Noemi focused on writing the README file.
